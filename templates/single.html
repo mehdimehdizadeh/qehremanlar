@@ -1,0 +1,55 @@
+
+{% extends 'layout.html' %}
+{% load static %}
+	{% block body %}
+	  
+	<header id="fh5co-header" role="banner">
+		<div class="container text-center">
+			<div id="fh5co-logo">
+				<a href="{% url 'index' %}"><img src="{% static 'images/logo.jpeg' %}" alt="Qəhrəmanlar"></a>
+			</div>
+			<nav>
+				<ul>
+					
+					{% for category in categories %}
+					<li><a href="/articles/category/{{category.id}}">{{category.name}}</a></li>
+					{% endfor %}
+					<li><a href="{% url 'about' %}">Haqqımızda</a></li>
+					<li>
+						<form>
+							{% csrf_token %} 
+						   <input type="text" name = "keyword" class="input-sm" maxlength="64" placeholder="Ara...">
+						 <button type="submit" class="btn btn-danger">Ara</button>
+					   </form>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<!-- END #fh5co-header -->
+
+		<div class="page-content">
+			<h1 class="mb0">{{articles.title}}</h1>
+			<p><img src="{{articles.image.url}}" alt="Free HTML5 by FreeHTML5.co"></p>
+			<p>{{articles.content|safe}}</p>
+			<small>{{articles.created_date}}</small>
+			
+
+
+		</div>
+
+		<!-- END .container-fluid -->
+		<footer id="fh5co-footer" role="contentinfo">
+			<div class="container-fluid">
+				<div class="footer-content">
+					<div class="copyright"><small>&copy; 2021 - 246 nömrəli məktəb-lisey kollektivi tərəfindən <br>Təşkilatçı : Mehdi Mehdizadeh</a></small></div>
+					<div class="social">
+						{% for sosial in sosials  %}
+						<a href="{{sosial.name}}"><i class="{{sosial.klass}}"></i></a>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- END #fh5co-footer -->
+{% endblock %}
